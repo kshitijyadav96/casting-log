@@ -21,7 +21,28 @@ export class ExcelService {
         const workbook = XLSX.read(new Uint8Array(response), { type: 'array' });
         const firstSheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[firstSheetName];
-        return XLSX.utils.sheet_to_json(worksheet, { header: 1 }); // header: 1 gets array of arrays
+        const data = XLSX.utils.sheet_to_json(worksheet, { header: 1 }); // header: 1 gets array of arrays
+
+        // Extract hyperlinks
+        const hyperlinks: { [key: string]: string } = {};
+        Object.keys(worksheet).forEach((cell) => {
+          if (worksheet[cell].l && worksheet[cell].l.Target) {
+            hyperlinks[cell] = worksheet[cell].l.Target;
+          }
+        });
+
+        // Attach hyperlinks to the data
+        return data.map((row: any, rowIndex: number) =>
+          row.map((cell: any, colIndex: any) => {
+            const cellAddress = XLSX.utils.encode_cell({
+              r: rowIndex,
+              c: colIndex,
+            });
+            return hyperlinks[cellAddress]
+              ? { value: cell, hyperlink: hyperlinks[cellAddress] }
+              : cell;
+          })
+        );
       })
     );
   }

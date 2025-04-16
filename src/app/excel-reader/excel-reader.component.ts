@@ -3,24 +3,25 @@ import { ExcelService } from '../services/excel.service';
 
 @Component({
   selector: 'app-excel-reader',
-  template: `
-    <div>
-      <h1>Excel Data</h1>
-      <div *ngIf="excelData && excelData.length > 0">
-        <pre>{{ jsonData | json }}</pre>
-      </div>
-      <div *ngIf="errorMessage">
-        <p style="color: red;">Error: {{ errorMessage }}</p>
-      </div>
-      <div *ngIf="!excelData && !errorMessage && loading">
-        <p>Loading Excel data...</p>
-      </div>
-    </div>
-  `,
+  templateUrl: './excel-reader.component.html',
+  styleUrls: ['./excel-reader.component.scss'],
 })
 export class ExcelReaderComponent implements OnInit {
   excelData: any[][] = [];
-  jsonData: any[] = [];
+  jsonData: {
+    No: string;
+    Name: string;
+    Gender: 'Male' | 'Female';
+    Phone: string;
+    Age: string;
+    Portfolio: { value: string; hyperlink: string } | null;
+    Height: string | null;
+    Weight: string | null;
+    Complexion: string | null;
+    Address: string | null;
+    Instagram: string | null;
+    Image: string | null;
+  }[] = [];
 
   errorMessage: string = '';
   loading: boolean = false;

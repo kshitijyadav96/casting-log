@@ -1,1 +1,39 @@
-<p>excel-reader works!</p>
+<div>
+  <h1>Casting Log - Dubuk</h1>
+  <div *ngIf="excelData && excelData.length > 0">
+    <div class="grid-section">
+      <div class="item" *ngFor="let item of jsonData">
+        <img
+          [src]="'./assets/casting/' + item.Name + '/' + item.Image"
+          *ngIf="item.Image"
+          alt="Image"
+        />
+        <h2>
+          <a [href]="item.Portfolio?.hyperlink || item.Portfolio" target="_blank"> {{ item.Name }}</a>
+        </h2>
+        <p *ngIf="item.Phone">
+          Phone No.: <a [href]="'tel:' + item.Phone">{{ item.Phone }}</a>
+        </p>
+        <p>Gender: {{ item.Gender }}</p>
+        <p *ngIf="item.Age">Age: {{ item.Age }}</p>
+        <p *ngIf="item.Height">Height: {{ item.Height }}</p>
+        <p *ngIf="item.Weight">Weight: {{ item.Weight }}</p>
+        <p *ngIf="item.Complexion">Complexion: {{ item.Complexion }}</p>
+
+        <p *ngIf="item.Address">Address: {{ item.Address }}</p>
+        <p *ngIf="item.Instagram">
+          Instagram:
+          <a [href]="'https://instagram.com/' + item.Instagram" target="_blank">
+            {{ "@" + item.Instagram }}</a
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="errorMessage">
+    <p style="color: red">Error: {{ errorMessage }}</p>
+  </div>
+  <div *ngIf="!excelData && !errorMessage && loading">
+    <p>Loading Excel data...</p>
+  </div>
+</div>
