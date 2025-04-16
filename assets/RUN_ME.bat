@@ -27,9 +27,26 @@ if errorlevel 1 (
 )
 
 :: Navigate to the destination path
-cd /d "%DEST_PATH%"
+
+
+:: Wait for two inputs before closing the console
+echo All commands executed successfully.
+
+
+:: Run the first command
+echo Running first command: git add, commit, and push...
+git add . && git commit -m "Changes in assets" && git push origin main
 if errorlevel 1 (
-    echo Failed to navigate to destination path. Exiting.
+    set /p input1="Press Enter to continue... "
+    echo First command failed. Exiting.
+    exit /b 1
+)
+
+:: Run the second command
+echo Running second command: npm run deploy...
+npm run deploy
+if errorlevel 1 (
+    echo Second command failed. Exiting.
     exit /b 1
 )
 
@@ -37,13 +54,3 @@ if errorlevel 1 (
 echo All commands executed successfully.
 set /p input1="Press Enter to continue... "
 set /p input2="Press Enter again to close... "
-
-:: Run RUN_ME2.bat
-echo Running RUN_ME2.bat...
-call "%~dp0RUN_ME2.bat"
-if errorlevel 1 (
-    echo RUN_ME2.bat execution failed. Exiting.
-    exit /b 1
-)
-
-:: End of script
