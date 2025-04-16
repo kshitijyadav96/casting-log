@@ -2,7 +2,6 @@
 :: Enable error handling
 setlocal enabledelayedexpansion
 
-set /p input1="Press Enter to continue... "
 :: Run the first command
 echo Running first command: git add, commit, and push...
 git add . && git commit -m "Changes in assets" && git push origin main
@@ -16,7 +15,6 @@ if errorlevel 1 (
 echo Running second command: npm run deploy...
 npm run deploy
 if errorlevel 1 (
-    set /p input1="Press Enter to continue... "
     echo Second command failed. Exiting.
     exit /b 1
 )
