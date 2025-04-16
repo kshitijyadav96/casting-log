@@ -5,11 +5,16 @@
       <div class="item" *ngFor="let item of jsonData">
         <img
           [src]="'./assets/casting/' + item.Name + '/' + item.Image"
-          *ngIf="item.Image"
           alt="Image"
+          onerror="this.src='./assets/avatar.png';"
         />
         <h2>
-          <a [href]="item.Portfolio?.hyperlink || item.Portfolio" target="_blank"> {{ item.Name }}</a>
+          <a
+            [href]="item.Portfolio?.hyperlink || item.Portfolio"
+            target="_blank"
+          >
+            {{ item.Name }}</a
+          >
         </h2>
         <p *ngIf="item.Phone">
           Phone No.: <a [href]="'tel:' + item.Phone">{{ item.Phone }}</a>
