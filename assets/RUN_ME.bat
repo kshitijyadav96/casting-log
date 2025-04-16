@@ -26,13 +26,6 @@ if errorlevel 1 (
     exit /b 1
 )
 
-:: Navigate to the destination path
-
-
-:: Wait for two inputs before closing the console
-echo All commands executed successfully.
-
-
 :: Run the first command
 echo Running first command: git add, commit, and push...
 git add . && git commit -m "Changes in assets" && git push origin main
@@ -52,5 +45,3 @@ if errorlevel 1 (
 
 :: Wait for two inputs before closing the console
 echo All commands executed successfully.
-set /p input1="Press Enter to continue... "
-set /p input2="Press Enter again to close... "
